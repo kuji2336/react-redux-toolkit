@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
   decrement,
   increment,
@@ -8,18 +8,30 @@ import {
   incrementAsync,
   incrementIfOdd,
   selectCount,
-} from './counterSlice';
-import styles from './Counter.module.css';
+} from "./counterSlice";
+import styles from "./Counter.module.css";
+import { useGetPokemonByNameQuery } from "./PokemonAPI";
 
 export function Counter() {
   const count = useAppSelector(selectCount);
   const dispatch = useAppDispatch();
-  const [incrementAmount, setIncrementAmount] = useState('2');
 
+  //call custom APi hook
+  const { data, isError, isFetching, refetch, requestId, isSuccess, isLoading} = useGetPokemonByNameQuery("bulbasaur");
+
+
+  const [incrementAmount, setIncrementAmount] = useState("2");
   const incrementValue = Number(incrementAmount) || 0;
 
   return (
     <div>
+      <div>
+        {/* {isFetching ? (
+          <p>Loading pokemon...</p>
+        ) : (
+          <img src={data.sprites.other["official-artwork"]["front_default"]} width={200} alt="pokemon" />
+        )} */}
+      </div>
       <div className={styles.row}>
         <button
           className={styles.button}
